@@ -1,10 +1,3 @@
-//
-//  main.swift
-//  Caesar Algorithm
-//
-//  Created by Zeeshan Waheed on 29/07/2024.
-//
-
 import Foundation
 import Darwin
 
@@ -15,7 +8,6 @@ let alphabets: [String] = [  "a", "A", "b", "B", "c", "C", "d", "D", "e", "E", "
                     "v", "V", "w", "W", "x", "X", "y", "Y", "z", "Z"    
 ]
 
-
 let specialCharacters: [String] = [
     "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+",
     "[", "]", "{", "}", "\\", "|", ";", ":", "'", "\"", ",", ".", "<", ">",
@@ -23,50 +15,113 @@ let specialCharacters: [String] = [
 ]
 
 
-let enteredString = "Test String for Encoding XXZZAABB ..?"
+print("Would you like to encode (1) or decode (2)? (Type the corresponding number): ")
+let yourChoice = readLine()
 
-let words = enteredString.split(separator: "")
-//let words = enteredString.map { String($0) }
+print("Enter the string: ")
+let enteredString = readLine()
+
+// hardcoded if someone doesn't want to take input via console
+//var enteredString = "Test String for Encoding XXZZAABB ..?"  // for encoding
+//var enteredString = "Whvw Vwulqj iru Hqfrglqj AACCDDEE ..?"  // for decoding
+//var yourChoice: Int = 1   // num 1 for enoding and 2 for decoding
+
+let words = enteredString!.split(separator: "")
+
 var wordArray: [String] = []
 var sentence: String = ""
 
-//print(word)
 
-var count = 0 // to keep count
 
-for word in words {
-    var instances = word.split(separator: "")
-    var instanceNumber = 0
-    for instance in instances {
-        count = 0
-        if alphabets.contains(String(instance)) {
-//            print(alphabets.firstIndex(of: String(instance))!)
-            instanceNumber = alphabets.firstIndex(of: String(instance))!
-            if instanceNumber < 46 {
-                wordArray.append(alphabets[instanceNumber + 6])
-            } else if instanceNumber >= 46 {
-                instanceNumber = instanceNumber - 46
-                wordArray.append(alphabets[instanceNumber])
-                print(instance)
+func implementation(_: String) {
+    for word in words {
+        let instances = word.split(separator: "")
+        var instanceNumber = 0
+        if yourChoice == "1" {
+            for instance in instances {
+                if alphabets.contains(String(instance)) {
+                    instanceNumber = alphabets.firstIndex(of: String(instance))!
+                    if instanceNumber < 46 {
+                        wordArray.append(alphabets[instanceNumber + 6])
+                    } else if instanceNumber >= 46 {
+                        instanceNumber = instanceNumber - 46
+                        wordArray.append(alphabets[instanceNumber])
+                    }
+                } else if specialCharacters.contains(String(instance)) {
+                    wordArray.append(String(instance))
+                } else {
+                    wordArray.append(String(instance))
+                }
             }
-//            wordArray.append(alphabets.firstIndex(of: String(instance)))
-//            print("\(instance)")
-        } else if specialCharacters.contains(String(instance)) {
-            wordArray.append(String(instance))
-//            print(instance)
+        } else if yourChoice == "2" {
+            for instance in instances {
+                if alphabets.contains(String(instance)) {
+                    instanceNumber = alphabets.firstIndex(of: String(instance))!
+                    if instanceNumber >= 6 {
+                        wordArray.append(alphabets[instanceNumber - 6])
+                    } else if instanceNumber < 6 {
+                        wordArray.append(alphabets[51 - instanceNumber])
+                    }
+                } else if specialCharacters.contains(String(instance)) {
+                    wordArray.append(String(instance))
+                } else {
+                    wordArray.append(String(instance))
+                }
+            }
         } else {
-            wordArray.append(String(instance))
-//            print(instance)
+            print("You have entered an invalid number!")
+            exit(0)
         }
-        count += 1
     }
+    sentence = wordArray.joined()
+    print("This is the answer string: \(sentence)")
 }
 
-sentence = wordArray.joined()
+implementation(yourChoice!)
 
-print(wordArray)
+//for word in words {
+//    let instances = word.split(separator: "")
+//    var instanceNumber = 0
+//    if yourChoice == "1" {
+//        for instance in instances {
+//            if alphabets.contains(String(instance)) {
+//                instanceNumber = alphabets.firstIndex(of: String(instance))!
+//                if instanceNumber < 46 {
+//                    wordArray.append(alphabets[instanceNumber + 6])
+//                } else if instanceNumber >= 46 {
+//                    instanceNumber = instanceNumber - 46
+//                    wordArray.append(alphabets[instanceNumber])
+//                }
+//            } else if specialCharacters.contains(String(instance)) {
+//                wordArray.append(String(instance))
+//            } else {
+//                wordArray.append(String(instance))
+//            }
+//        }
+//    } else if yourChoice == "2" {
+//        for instance in instances {
+//            if alphabets.contains(String(instance)) {
+//                instanceNumber = alphabets.firstIndex(of: String(instance))!
+//                if instanceNumber >= 6 {
+//                    wordArray.append(alphabets[instanceNumber - 6])
+//                } else if instanceNumber < 6 {
+//                    wordArray.append(alphabets[51 - instanceNumber])
+//                }
+//            } else if specialCharacters.contains(String(instance)) {
+//                wordArray.append(String(instance))
+//            } else {
+//                wordArray.append(String(instance))
+//            }
+//        }
+//    } else {
+//        print("You have entered an invalid number!")
+//        exit(0)
+//    }
+//}
 
-print("This is the sentence: \(sentence)")
+//sentence = wordArray.joined()
 
+//print(wordArray)
 
-print("Whvw Vwulqj iru Hqfrglqj AACCDDEE ..?")
+//print("This is the answer string: \(sentence)")
+
