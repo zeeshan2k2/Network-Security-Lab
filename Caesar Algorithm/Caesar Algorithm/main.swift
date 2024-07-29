@@ -14,10 +14,8 @@ let specialCharacters: [String] = [   "!", "@", "#", "$", "%", "^", "&", "*", "(
 print("Would you like to encode (1) or decode (2)? (Type the corresponding number): ")
 let yourChoice = readLine()
 
-if yourChoice != "1" && yourChoice != "2" {
-    print("Invalid input!")
-    exit(0)
-}
+
+if yourChoice != "1" && yourChoice != "2" { print("Invalid input!"); exit(0) }
 
 print()
 print("Enter the string: ")
@@ -29,11 +27,8 @@ let enteredString = readLine()
 //var yourChoice: Int = 1   // num 1 for enoding and 2 for decoding
 
 let words = enteredString!.split(separator: "")
-
 var wordArray: [String] = []
 var sentence: String = ""
-let encodedOrDecoded = ["Encoded", "Decoded"]
-
 var num: Int = 0
 
 func implementation(_: String) {
@@ -59,7 +54,7 @@ func implementation(_: String) {
     sentence = wordArray.joined()
     print()
     print("This is the entered string: \(enteredString!)")
-    print("This is the \(encodedOrDecoded[(Int(yourChoice!)!) - 1]) string: \(sentence)")
+    print("This is the \(yourChoice == "1" ? "Encoded": "Decoded") string: \(sentence)")
     print()
 }
 
